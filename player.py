@@ -1,5 +1,7 @@
-class Score():
-    score = 0
+class Player():
+    def __init__(self,name):
+        self.name = name
+        self.score = 0
     
     def add_score(self):
         self.score += 1
@@ -7,7 +9,7 @@ class Score():
     def reset_score(self):
         self.score = 0
         
-    def show_score(player1score,player2score,font,screen):
+    def show_player_score(player1score,player2score,font,screen):
     #text
         p1text = font.render(f"Player 1: {player1score.score}",True,(255,255,255))
         p2text = font.render(f"Player 2: {player2score.score}",True,(255,255,255))

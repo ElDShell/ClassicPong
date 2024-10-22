@@ -1,17 +1,20 @@
 import pygame as pg
-from score import Score
+from player import Player
 # initialize the game
 pg.init()
 
 # player's scores
-player1score = Score()
-player2score = Score()
+player1 = Player("Player1")
+player2 = Player("Player2")
 
 # set the width and height of the screen
 width,height= 800,650 
 screen =  pg.display.set_mode((width,height))
 
-#set the frames of the game 
+# sound effect
+collision_sound =pg.mixer.Sound("assests\collision sound.mp3")
+
+#set the frames of the game
 clock = pg.time.Clock()
 #set the font
 font = pg.font.Font(None, 36)  # 36 is the font size
@@ -59,12 +62,13 @@ is_running = True
 def reset_game(ball,paddel1,paddel2,height,width,speed):
     ball.x ,ball.y = width //2 , height //2
     speed *= -1
+    collision_sound.play()
     
     
 while is_running:
     # set the back ground 
     screen.fill((0,0,0))
-    Score.show_score(player1score,player2score,font,screen)
+    Player.show_player_score(player1,player2,font,screen)
     # to quit the game
     for event in pg.event.get():
         is_running = False if event.type ==  pg.QUIT else True
@@ -93,18 +97,20 @@ while is_running:
     
     # collision with top and bottom walls
     if ball.top <= hr.bottom or ball.bottom >= height:
-        ball_speed_y *= -1  # Reverse the vertical direction
-
+        ball_speed_y *= -1  # Reverse the Y direction when collision
+        collision_sound.play()
     if ball.colliderect(paddle1) or ball.colliderect(paddle2):
-        ball_speed_x *= -1  # Reverse ball direction on collision
-
+        ball_speed_x *= -1  # Reverse the x direction when collision
+        collision_sound.play()
+        
+    # reset the game 
     if ball.right >= width:
         reset_game(ball,paddle1,paddle2,height,width,ball_speed_x) 
-        player1score.add_score()
+        player1.add_score()
         
     if ball.left <= 0:
         reset_game(ball,paddle1,paddle2,height,width,ball_speed_x) 
-        player2score.add_score()
-    
+        player2.add_score()
+        
     # 60fps
     clock.tick(60)  
