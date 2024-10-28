@@ -9,10 +9,7 @@ This is a simple Pong game built using Pygame, featuring a collision detection s
 - **Sound Effects**: A collision sound is played each time the ball hits the paddles, the HR, or the edges of the screen.
 
 ## Planned Features
-
-- **Player Name Input**: In the future, the game will feature an initial screen where the two players can enter their names before starting.
-- **Round Start Button**: A button will be added at the beginning of each round to start the ball movement.
-
+- **AI Opponent**: Implement an AI opponent that can play against the user.
 ## How to Play
 
 1. **Player 1** (Left Paddle): Use the `W` and `S` keys to move the paddle up and down.
